@@ -81,6 +81,14 @@ func main() {
 	//http.HandleFunc("/game/dynamic/user/uploadrecord", services.GameUpdataRecord)
 	http.HandleFunc("/dynamic/game/swc/bppoint/insert", services.InsertBranchingPoints)
 
+	//image processing
+	http.HandleFunc("/dynamic/image_processing/getPluginList", services.GetPluginList)                   //获取插件列表
+	http.HandleFunc("/dynamic/image_processing/getImageProcessingList", services.GetImageProcessingList) //获取图像列表
+	http.HandleFunc("/dynamic/image_processing/getImage", services.GetImage)
+	http.HandleFunc("/dynamic/image_processing/convertimg", services.ConvertImage) //转换数据位数
+	http.HandleFunc("/dynamic/image_processing/commandline", services.CommandLine) //通用接口
+	http.HandleFunc("/dynamic/image_processing/test", services.Test)
+
 	log.WithFields(log.Fields{
 		"event": "start server",
 	}).Fatal(http.ListenAndServe(":8000", nil))

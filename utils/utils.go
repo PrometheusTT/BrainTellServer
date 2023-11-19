@@ -100,6 +100,23 @@ func SendFileNoDelete(w http.ResponseWriter, status int, pa string) {
 	}).Infof("%v\n", pa)
 
 	f, err := os.Open(pa)
+	if err != nil {
+		if os.IsNotExist(err) {
+			w.WriteHeader(http.StatusNotFound)
+		} else if os.IsPermission(err) {
+			w.WriteHeader(http.StatusForbidden)
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+
+		log.WithFields(log.Fields{
+			"event": "Try SendFile",
+			"desc":  "fail to open file:",
+			"error": err.Error(),
+		}).Errorf("%v\n", pa)
+
+		return
+	}
 	defer f.Close()
 
 	if err != nil {

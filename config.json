@@ -13,5 +13,8 @@
   "aeskey": "1111111111111111",
   "mainpath": "/Users/huanglei/Desktop/BrainTellServer",
   "cropprocess": 50,
-  "emails": ["ljliu@braintell.org", "h@braintell.org","yufeng_liu@seu.edu.cn","1041763279@qq.com"]
+  "emails": ["ljliu@braintell.org", "h@braintell.org","yufeng_liu@seu.edu.cn","1041763279@qq.com"],
+  "v3d" : "D:/BrainTellServer/bin/Vaa3D-x.exe",
+  "tmppath": "D://BrainTellServer//tmppath",
+  "commandlineprocess": 50
 }

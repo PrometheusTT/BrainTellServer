@@ -47,10 +47,15 @@ var availableCropProcess *semaphore.Weighted
 var Emails []string
 var QueueSize int
 
+// image processing para
+var v3d string
+var tmppath string
+var availableImgProcess *semaphore.Weighted
+
 func LoadConfig() error {
 
 	//配置系统日志
-	path := "./logs/systemlog"
+	path := "D:/BrainTellServer/logs/systemlog"
 	writer, _ := rotatelogs.New(
 		path+".%Y%m%d%H%M",
 		rotatelogs.WithLinkName(path),
@@ -103,6 +108,11 @@ func LoadConfig() error {
 	//没有这个key时，QueueSize=0
 	QueueSize = config.GetInt("queuesize")
 	Emails = config.GetStringSlice("emails")
+
+	//image processing
+	v3d = config.GetString("v3d")
+	tmppath = config.GetString("tmppath")
+	availableImgProcess = semaphore.NewWeighted(config.GetInt64("imgprocess"))
 	return nil
 }
 
