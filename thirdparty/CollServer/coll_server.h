@@ -18,29 +18,38 @@ public:
     virtual ~CollServer();
     void incomingConnection(qintptr handle);
 
-    void addmarkers(const QString msg);
+    bool addmarkers(const QString msg);
     CollDetection* detectUtil;
     static CollServer* getInstance();
 
-    static QStringList msglist;
-    static int processedmsgcnt;
-    static int savedmsgcnt;
-    static int receivedcnt;
+    QStringList msglist;
+    int processedmsgcnt;
+    int savedmsgcnt;
+    int receivedcnt;
 
-    static QMap<QString,CollClient*> hashmap;//user->client
-    static V_NeuronSWC_list segments;
+    QMap<QString,CollClient*> hashmap;//user->client
+    V_NeuronSWC_list segments;
+    V_NeuronSWC_list last1MinSegments;
+    V_NeuronSWC_list last3MinSegments;
+    V_NeuronSWC_list segmentsForOthersDetect;
+    V_NeuronSWC_list segmentsForMissingDetect;
 
-    static QList<CellAPO> markers;
+    QList<CellAPO> markers;
 
-    static QString swcpath;
-    static QString apopath;
-    static QString anopath;
+    QString swcpath;
+    QString apopath;
+    QString anopath;
 
-    static QMutex mutex;
-    static QString RES;
+    QMutex mutex;
+    QMutex mutexForDetectOthers;
+    QMutex mutexForDetectMissing;
+    QString RES;
+
+    bool isSomaExists;
+    XYZ somaCoordinate;
 
 signals:
-    void clientAddMarker(QString);
+//    void clientAddMarker(QString);
     void clientSendMsgs(QStringList);
     void clientUpdatesendmsgcnt();
     void clientSendmsgs2client(int);
@@ -53,6 +62,12 @@ public slots:
     void autoExit();
 
     void RemoveList(QThread* thread);
+
+    void startTimerForDetectLoops();
+    void startTimerForDetectOthers();
+    void startTimerForDetectTip();
+    void startTimerForDetectCrossing();
+
 private:
 //    qsizetype idxforprocessed=0;
     QString Port;
@@ -62,16 +77,22 @@ private:
     QString Prefix;
 
     QTimer *timerForAutoSave;
+    QTimer *timerForDetectLoops;
     QTimer *timerForDetectOthers;
     QTimer *timerForDetectTip;
     QTimer *timerForDetectCrossing;
     QTimer *timerForAutoExit;
+
     static CollServer* curServer;
     QList<CollThread*> list_thread;
 
 public:
     QString getAnoName();
     QString getImage();
+    QTimer* getTimerForDetectLoops();
+    QTimer* getTimerForDetectOthers();
+    QTimer* getTimerForDetectTip();
+    QTimer* getTimerForDetectCrossing();
 };
 
 #endif // COLL_SERVER_H
