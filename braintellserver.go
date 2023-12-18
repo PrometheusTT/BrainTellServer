@@ -87,6 +87,7 @@ func main() {
 	http.HandleFunc("/dynamic/image_processing/getImage", services.GetImage)
 	http.HandleFunc("/dynamic/image_processing/convertimg", services.ConvertImage) //转换数据位数
 	http.HandleFunc("/dynamic/image_processing/commandline", services.CommandLine) //通用接口
+	http.HandleFunc("/dynamic/image_processing/callModel", services.CallModel)     //通用接口
 	http.HandleFunc("/dynamic/image_processing/test", services.Test)
 
 	log.WithFields(log.Fields{

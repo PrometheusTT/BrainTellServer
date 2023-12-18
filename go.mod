@@ -45,7 +45,6 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/robfig/cron v1.2.0
-	github.com/sbinet/go-python v0.1.0
 	github.com/sirupsen/logrus v1.4.2
 	golang.org/x/sync v0.1.0
 	gopkg.in/jordan-wright/email.v1 v1.0.0-20150827023900-a3d0a1a81cdc
